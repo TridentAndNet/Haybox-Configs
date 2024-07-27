@@ -9,6 +9,10 @@
 #include "modes/RivalsOfAether.hpp"
 #include "modes/Ultimate.hpp"
 
+// My personal additions
+#include "modes/MeleeThumbY.hpp"
+#include "modes/FgcMode2.hpp"
+
 extern KeyboardMode *current_kb_mode;
 
 void set_mode(CommunicationBackend *backend, ControllerMode *mode) {
@@ -49,9 +53,13 @@ void select_mode(CommunicationBackend *backend) {
         } else if (inputs.down) {
             set_mode(backend, new Ultimate(socd::SOCD_2IP));
         } else if (inputs.right) {
-            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL));
+            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL)); 
         } else if (inputs.b) {
             set_mode(backend, new RivalsOfAether(socd::SOCD_2IP));
+        } else if(inputs.a) {
+            set_mode(backend, new MeleeThumbY(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false}));            
+        } else if(inputs.wasd_up){
+            set_mode(backend, new FgcMode2(socd::SOCD_2IP, socd::SOCD_2IP)); 
         }
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l) {

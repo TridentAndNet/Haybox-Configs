@@ -29,6 +29,9 @@ GpioButtonMapping button_mappings[] = {
     { &InputState::down,        3 },
     { &InputState::right,       2 },
 
+    // test functionality of additional up 
+    { &InputState::wasd_up,       1 },
+
     { &InputState::mod_x,       6 },
     { &InputState::mod_y,       7 },
 
