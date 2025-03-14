@@ -12,6 +12,8 @@
 // My personal additions
 #include "modes/MeleeThumbY.hpp"
 #include "modes/FgcMode2.hpp"
+#include "modes/FgcMode2Neutral.hpp"
+#include "modes/FgcModePinkyUp.hpp"
 
 extern KeyboardMode *current_kb_mode;
 
@@ -37,7 +39,8 @@ void set_mode(CommunicationBackend *backend, KeyboardMode *mode) {
 void select_mode(CommunicationBackend *backend) {
     InputState &inputs = backend->GetInputs();
     if (inputs.mod_x && !inputs.mod_y && inputs.start) {
-        if (inputs.l) {
+        // if (inputs.l) { 
+        if (inputs.right){// Changed so that its right instead of left pinky (l)
             set_mode(
                 backend,
                 new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false })
@@ -52,19 +55,21 @@ void select_mode(CommunicationBackend *backend) {
             );
         } else if (inputs.down) {
             set_mode(backend, new Ultimate(socd::SOCD_2IP));
-        } else if (inputs.right) {
-            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL)); 
         } else if (inputs.b) {
             set_mode(backend, new RivalsOfAether(socd::SOCD_2IP));
         } else if(inputs.a) {
             set_mode(backend, new MeleeThumbY(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false}));            
         } else if(inputs.wasd_up){
             set_mode(backend, new FgcMode2(socd::SOCD_2IP, socd::SOCD_2IP)); 
+        } else if (inputs.r) { //This works but I like PinkyUp more for neutral purposes.
+            set_mode(backend, new FgcMode2Neutral(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL)); 
+        } else if(inputs.l){
+            set_mode(backend, new FgcModePinkyUp(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL));
         }
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l) {
             set_mode(backend, new DefaultKeyboardMode(socd::SOCD_2IP));
-        }
+        } 
     }
 }
 

@@ -1,23 +1,26 @@
-#include "modes/FgcMode2.hpp"
+#include "modes/FgcMode2Neutral.hpp"
 
-FgcMode2::FgcMode2(socd::SocdType horizontal_socd, socd::SocdType vertical_socd) {
+FgcMode2Neutral::FgcMode2Neutral(socd::SocdType horizontal_socd, socd::SocdType vertical_socd) {
     // _socd_pair_count = 4;
-    _socd_pair_count = 5;
+    _socd_pair_count = 9;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{&InputState::left,   &InputState::right, horizontal_socd         },
  /* Mod X override C-Up input if both are pressed. Without this, neutral SOCD doesn't work
   properly if Down and both Up buttons are pressed, because it first resolves Down + Mod X
   to set both as unpressed, and then it sees C-Up as pressed but not Down, so you get an up                         
   input instead of neutral. */
-        // socd::SocdPair{ &InputState::a, &InputState::wasd_up,  socd::SOCD_DIR1_PRIORITY},
+        socd::SocdPair{ &InputState::a, &InputState::wasd_up,  socd::SOCD_DIR1_PRIORITY},
+        socd::SocdPair{ &InputState::a, &InputState::c_up,  socd::SOCD_DIR1_PRIORITY},
+        socd::SocdPair{ &InputState::c_up, &InputState::wasd_up,  socd::SOCD_DIR1_PRIORITY},
+        socd::SocdPair{ &InputState::left, &InputState::l,  socd::SOCD_DIR1_PRIORITY},
+        socd::SocdPair{&InputState::left,   &InputState::right, horizontal_socd         },
         socd::SocdPair{ &InputState::down,  &InputState::a,  vertical_socd           },
         socd::SocdPair{ &InputState::down,  &InputState::wasd_up,  vertical_socd  },
         socd::SocdPair{ &InputState::down,  &InputState::c_up,  vertical_socd  },
         socd::SocdPair{&InputState::l,   &InputState::right, horizontal_socd         }
-    }; //since I'm using last input wins, the stuff about socd_dir1 doesn't really matter. 
+    }; 
 }
 
-void FgcMode2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
+void FgcMode2Neutral::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     // Directions
     outputs.dpadLeft = inputs.left || inputs.l;
     outputs.dpadRight = inputs.right;
@@ -44,7 +47,7 @@ void FgcMode2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.buttonL = inputs.midshield;
 }
 
-void FgcMode2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
+void FgcMode2Neutral::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
     outputs.leftStickX = 128;
     outputs.leftStickY = 128;
     outputs.rightStickX = 128;

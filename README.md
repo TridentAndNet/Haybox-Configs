@@ -7,6 +7,7 @@ HayBox is a modular, cross-platform firmware for digital or mixed analog/digital
 
 ## Table of Contents
 
+* [New Additions](#new-changes)
 * [Features](#features)
 * [Installation](#installation)
   * [Pre-built binaries](#pre-built-binaries)
@@ -28,6 +29,25 @@ HayBox is a modular, cross-platform firmware for digital or mixed analog/digital
 * [Contributing](#contributing)
 * [Contributors](#contributors)
 * [License](#license)
+
+
+## New Changes
+
+The rest of this document are from the original, but I have detailed the changes I've made to the original config with my changes : 
+- The original settings can be accessed from ModX + _ + Start :
+  - right -> Melee
+  - left -> PM
+  - down -> Ultimate
+  - B -> Rivals
+- The new settings are ModX + _ + Start : 
+  - A -> MeleeThumbY
+  - WasdUP -> FGC2 (Last Input Wins)
+  - R -> FGC2 (Neutral SOCD)
+  - L -> FGCPinkyUp (FGC2 w/ Neutral SOCD and left pinky = Up)
+
+### Diagrams
+
+![image](diagrams/New_Layouts.png)
 
 ## Features
 
